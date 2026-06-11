@@ -1,8 +1,33 @@
-const STORAGE_KEY = "rokaf_ax_applications";
-
-const readApplications = () => JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-const saveApplications = (items) => localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
 const onlyDigits = (value) => value.replace(/\D/g, "");
+
+function formatPhone(value) {
+  const digits = onlyDigits(value).slice(0, 11);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+  return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
+}
+
+function openCompletionModal() {
+  const modal = document.querySelector('#completionModal');
+  modal.hidden = false;
+  document.body.classList.add('modal-open');
+  document.querySelector('#completionClose').focus();
+}
+
+function setupCompletionModal() {
+  const modal = document.querySelector('#completionModal');
+  const close = () => {
+    modal.hidden = true;
+    document.body.classList.remove('modal-open');
+  };
+  document.querySelector('#completionClose').addEventListener('click', close);
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) close();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !modal.hidden) close();
+  });
+}
 
 function setupForm() {
   const form = document.querySelector("#applicationForm");
@@ -11,18 +36,16 @@ function setupForm() {
   form.businessNumber.addEventListener("input", () => {
     form.businessNumber.value = onlyDigits(form.businessNumber.value);
   });
-  form.addEventListener("submit", (event) => {
+  form.attendee1Phone.addEventListener("input", () => {
+    form.attendee1Phone.value = formatPhone(form.attendee1Phone.value);
+  });
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const applications = readApplications();
+    const submitButton = form.querySelector('button[type="submit"]');
     const selectedProjects = [...form.querySelectorAll("input[name='projects']:checked")].map((item) => item.value);
     const businessNumber = onlyDigits(form.businessNumber.value);
     if (!/^\d{10}$/.test(businessNumber)) {
       status.textContent = "사업자등록번호는 숫자 10자리로 입력해 주세요.";
-      form.businessNumber.focus();
-      return;
-    }
-    if (applications.some((item) => item.businessNumber === businessNumber)) {
-      status.textContent = "이미 신청된 사업자등록번호입니다.";
       form.businessNumber.focus();
       return;
     }
@@ -31,8 +54,7 @@ function setupForm() {
       return;
     }
 
-    applications.push({
-      id: crypto.randomUUID(),
+    const application = {
       companyName: form.companyName.value.trim(),
       businessNumber,
       attendee1Name: form.attendee1Name.value.trim(),
@@ -42,12 +64,29 @@ function setupForm() {
       attendee2Name: form.attendee2Name.value.trim(),
       attendee2Role: form.attendee2Role.value.trim(),
       projects: selectedProjects,
-      meetup: form.meetup.value,
-      createdAt: new Date().toISOString()
-    });
-    saveApplications(applications);
-    form.reset();
-    status.textContent = "[신청완료] 접수가 완료되었습니다. 입력하신 이메일로 안내 메일을 발송하는 백엔드 연동 지점까지 준비되어 있습니다.";
+      meetup: form.meetup.value
+    };
+
+    submitButton.disabled = true;
+    submitButton.textContent = "접수 중...";
+    status.textContent = "";
+    try {
+      const response = await fetch('/api/applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(application)
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || '접수에 실패했습니다.');
+      form.reset();
+      status.textContent = "";
+      openCompletionModal();
+    } catch (error) {
+      status.textContent = error.message;
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "신청서 제출";
+    }
   });
 }
 
@@ -74,4 +113,5 @@ function setupReveal() {
 
 setupReveal();
 setupTabs();
+setupCompletionModal();
 setupForm();

@@ -300,11 +300,49 @@ input {
   border: 1px solid #cbd5e1;
   border-radius: 14px;
   font: inherit;
+  font-weight: 400;
+  color: var(--slate);
 }
+input::placeholder { color: #94a3b8; font-weight: 400; }
 fieldset { display: grid; gap: 10px; margin: 0; padding: 18px; border: 1px solid var(--line); border-radius: 18px; }
 fieldset label, .consent { font-weight: 700; color: #334155; }
 fieldset input, .consent input { width: auto; margin-right: 8px; }
 .form-status { margin: 0; min-height: 24px; font-weight: 900; color: var(--blue); }
+.completion-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(6,17,31,.7);
+  backdrop-filter: blur(10px);
+}
+.completion-modal[hidden] { display: none; }
+.completion-card {
+  width: min(460px, 100%);
+  padding: 42px 34px;
+  border-radius: 30px;
+  text-align: center;
+  background: white;
+  box-shadow: 0 36px 100px rgba(0,0,0,.25);
+}
+.completion-check {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  color: white;
+  background: linear-gradient(135deg, var(--navy-2), var(--blue));
+  font-size: 34px;
+  font-weight: 900;
+}
+.completion-card .eyebrow { justify-content: center; margin-bottom: 12px; font-size: 12px; }
+.completion-card h2 { margin: 0; color: var(--navy); font-size: 30px; letter-spacing: -.04em; }
+.completion-card p:not(.eyebrow) { margin: 15px 0 26px; color: #475569; }
+.modal-open { overflow: hidden; }
 .footer { display: flex; justify-content: space-between; gap: 20px; padding: 28px clamp(20px, 5vw, 82px); color: #cbd5e1; background: #06111f; }
 .footer strong { color: white; }
 
