@@ -98,18 +98,6 @@ function setupForm() {
   });
 }
 
-function setupTabs() {
-  const tabs = document.querySelectorAll(".tab");
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      tabs.forEach((item) => item.classList.remove("active"));
-      document.querySelectorAll(".tab-panel").forEach((item) => item.classList.remove("active"));
-      tab.classList.add("active");
-      document.getElementById(tab.dataset.tab).classList.add("active");
-    });
-  });
-}
-
 function setupReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -120,6 +108,5 @@ function setupReveal() {
 }
 
 setupReveal();
-setupTabs();
 setupCompletionModal();
 setupForm();
