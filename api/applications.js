@@ -1,4 +1,5 @@
 const { createClient } = require('@supabase/supabase-js');
+const APPLICATION_LIMIT = 60;
 
 function json(response, status, body) {
   response.status(status).setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -52,6 +53,17 @@ module.exports = async function handler(request, response) {
       const application = normalizeApplication(request.body);
       const validationError = validate(application);
       if (validationError) return json(response, 400, { error: validationError });
+
+      const { count, error: countError } = await supabase
+        .from('event_applications')
+        .select('id', { count: 'exact', head: true });
+      if (countError) throw countError;
+      if ((count || 0) >= APPLICATION_LIMIT) {
+        return json(response, 429, {
+          code: 'APPLICATION_CLOSED',
+          error: '신청 접수가 마감되었습니다.'
+        });
+      }
 
       const { error } = await supabase.from('event_applications').insert(application);
       if (error?.code === '23505') return json(response, 409, { error: '이미 신청된 사업자등록번호입니다.' });

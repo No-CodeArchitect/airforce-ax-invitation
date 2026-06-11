@@ -7,8 +7,22 @@ function formatPhone(value) {
   return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
 }
 
-function openCompletionModal() {
+function openCompletionModal(type = 'success') {
   const modal = document.querySelector('#completionModal');
+  const card = modal.querySelector('.completion-card');
+  const icon = document.querySelector('#completionIcon');
+  const eyebrow = document.querySelector('#completionEyebrow');
+  const title = document.querySelector('#completionTitle');
+  const message = document.querySelector('#completionMessage');
+
+  const isClosed = type === 'closed';
+  card.classList.toggle('is-closed', isClosed);
+  icon.textContent = isClosed ? '!' : '✓';
+  eyebrow.textContent = isClosed ? 'Application Closed' : 'Application Complete';
+  title.textContent = isClosed ? '신청 접수가 마감되었습니다.' : '신청이 완료되었습니다.';
+  message.innerHTML = isClosed
+    ? '많은 관심을 보내주셔서 진심으로 감사드립니다.<br>준비된 접수 인원이 모두 마감되어 더 이상 신청을 받기 어려운 점 양해 부탁드립니다.'
+    : '행사 참가 신청이 정상적으로 접수되었습니다.<br>입력하신 연락처를 통해 추후 안내드리겠습니다.';
   modal.hidden = false;
   document.body.classList.add('modal-open');
   document.querySelector('#completionClose').focus();
@@ -77,10 +91,14 @@ function setupForm() {
         body: JSON.stringify(application)
       });
       const result = await response.json();
+      if (response.status === 429 && result.code === 'APPLICATION_CLOSED') {
+        openCompletionModal('closed');
+        return;
+      }
       if (!response.ok) throw new Error(result.error || '접수에 실패했습니다.');
       form.reset();
       status.textContent = "";
-      openCompletionModal();
+      openCompletionModal('success');
     } catch (error) {
       status.textContent = error.message;
     } finally {

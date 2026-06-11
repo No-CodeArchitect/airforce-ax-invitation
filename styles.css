@@ -339,6 +339,8 @@ fieldset input, .consent input { width: auto; margin-right: 8px; }
   font-size: 34px;
   font-weight: 900;
 }
+.completion-card.is-closed .completion-check { background: linear-gradient(135deg, #475569, #0f172a); }
+.completion-card.is-closed .eyebrow { color: #475569; }
 .completion-card .eyebrow { justify-content: center; margin-bottom: 12px; font-size: 12px; }
 .completion-card h2 { margin: 0; color: var(--navy); font-size: 30px; letter-spacing: -.04em; }
 .completion-card p:not(.eyebrow) { margin: 15px 0 26px; color: #475569; }
