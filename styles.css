@@ -220,6 +220,9 @@ fieldset input, .consent input { width: auto; margin-right: 8px; }
 .apply-location-copy > strong { display: block; font-size: 21px; line-height: 1.35; }
 .apply-location-copy address { margin-top: 5px; color: #cbd5e1; font-style: normal; font-size: 14px; }
 .apply-location-copy > p { margin: 18px 0 0; color: #dbeafe; font-size: 14px; }
+.location-grid { display: flex; justify-content: center; }
+.location-map { width: 100%; max-width: 920px; overflow: hidden; border-radius: 20px; }
+.location-map img { display: block; width: 100%; height: auto; }
 .transport-notice { margin-top: 18px; padding: 17px; border-radius: 16px; color: var(--navy); background: #e7f4ff; }
 .transport-notice strong { display: block; }
 .transport-notice p { margin: 5px 0 0; color: #475569; font-size: 14px; }
