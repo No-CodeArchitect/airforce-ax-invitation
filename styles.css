@@ -174,8 +174,9 @@ a { color: inherit; text-decoration: none; }
 .project-card:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 34px 80px rgba(18,132,214,.17); }
 .project-index { position: absolute; top: 22px; right: 28px; color: #cbd5e1; font-size: 64px; font-weight: 950; letter-spacing: -.08em; }
 .project-type { margin-top: 22px !important; color: var(--blue) !important; font-weight: 900; }
-.project-card dl { display: flex; gap: 10px; margin: 26px 0 0; color: #334155; }
-.project-card dt { font-weight: 900; color: var(--navy); }
+.project-card dl { display: flex; gap: 10px; margin: 26px 0 0; color: #334155; align-items: flex-start; }
+.project-card dt { flex: 0 0 auto; white-space: nowrap; font-weight: 900; color: var(--navy); }
+.project-card dd { flex: 1; min-width: 0; margin: 0; word-break: keep-all; }
 .apply {
   display: grid;
   grid-template-columns: .75fr 1.25fr;
