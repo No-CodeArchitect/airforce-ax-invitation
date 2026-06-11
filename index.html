@@ -149,6 +149,16 @@
     <span>주관: 공군·서울대학교 / 위탁: 인공지능연구원(AIRI)</span>
   </footer>
 
+  <div id="completionModal" class="completion-modal" hidden>
+    <div class="completion-card" role="dialog" aria-modal="true" aria-labelledby="completionTitle">
+      <div class="completion-check" id="completionIcon" aria-hidden="true">✓</div>
+      <p class="eyebrow" id="completionEyebrow">Application Complete</p>
+      <h2 id="completionTitle">신청이 완료되었습니다.</h2>
+      <p id="completionMessage">행사 참가 신청이 정상적으로 접수되었습니다.<br>입력하신 연락처를 통해 추후 안내드리겠습니다.</p>
+      <button id="completionClose" class="button primary full">확인</button>
+    </div>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>
