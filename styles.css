@@ -62,18 +62,18 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
 }
 .eyebrow {
-  margin: 0 0 14px;
+  margin: 0 0 18px;
   color: var(--blue);
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 900;
-  letter-spacing: .16em;
+  letter-spacing: .13em;
   text-transform: uppercase;
 }
 .hero h1 {
   margin: 0;
-  font-size: clamp(48px, 8vw, 108px);
-  line-height: .96;
-  letter-spacing: -.07em;
+  font-size: clamp(44px, 6.4vw, 88px);
+  line-height: 1;
+  letter-spacing: -.06em;
   color: var(--navy);
 }
 .hero h1 span {
@@ -324,6 +324,8 @@ fieldset input, .consent input { width: auto; margin-right: 8px; }
 @media (max-width: 640px) {
   .section { padding: 74px 18px; }
   .hero { min-height: auto; padding: 60px 18px 80px; }
+  .hero .eyebrow { font-size: 14px; line-height: 1.5; }
+  .hero h1 { font-size: 44px; }
   .mission-grid, .project-grid, .form-row, .process-grid { grid-template-columns: 1fr; }
   .hero-panel { min-height: 420px; }
   .node { width: 88px; height: 88px; font-size: 14px; }
