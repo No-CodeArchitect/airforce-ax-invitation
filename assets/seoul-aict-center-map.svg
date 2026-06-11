@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title desc">
+  <title id="title">서초 AICT 우수기업센터 오시는 길</title>
+  <desc id="desc">양재시민의숲역에서 서초 AICT 우수기업센터 B동 5층까지의 안내 약도</desc>
+  <rect width="960" height="640" rx="38" fill="#f7fbff"/>
+  <g fill="#e7f0f9">
+    <rect x="52" y="48" width="224" height="142" rx="22"/><rect x="350" y="52" width="190" height="104" rx="22"/>
+    <rect x="614" y="46" width="290" height="150" rx="22"/><rect x="70" y="402" width="238" height="168" rx="22"/>
+    <rect x="374" y="432" width="188" height="134" rx="22"/><rect x="648" y="394" width="250" height="182" rx="22"/>
+  </g>
+  <path d="M0 270h960M322 0v640M600 0v640" stroke="#fff" stroke-width="42"/>
+  <path d="M0 270h960M322 0v640M600 0v640" stroke="#c7d8e8" stroke-width="4" stroke-dasharray="10 13"/>
+  <path d="M158 474C258 438 324 382 420 346S574 294 716 226" fill="none" stroke="#1484d6" stroke-width="12" stroke-linecap="round" stroke-dasharray="2 24"/>
+  <g transform="translate(82 428)">
+    <circle cx="76" cy="50" r="48" fill="#0a6ec7"/>
+    <text x="76" y="56" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#fff">신분당선</text>
+    <text x="0" y="124" font-family="Arial,'Noto Sans KR',sans-serif" font-size="26" font-weight="800" fill="#0a192f">양재시민의숲역</text>
+    <text x="0" y="158" font-family="Arial,'Noto Sans KR',sans-serif" font-size="20" fill="#526579">버스 또는 택시 이용 권장</text>
+  </g>
+  <g transform="translate(638 128)">
+    <path d="M82 0c45 0 82 37 82 82 0 63-82 136-82 136S0 145 0 82C0 37 37 0 82 0z" fill="#0a192f"/>
+    <circle cx="82" cy="79" r="32" fill="#38bdf8"/>
+    <path d="M61 91V61h42v30M54 91h56M69 61V49h26v12" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    <rect x="-76" y="235" width="330" height="142" rx="25" fill="#fff" stroke="#bfd7ec" stroke-width="3"/>
+    <text x="89" y="278" text-anchor="middle" font-family="Arial,'Noto Sans KR',sans-serif" font-size="25" font-weight="800" fill="#0a192f">서초 AICT 우수기업센터</text>
+    <text x="89" y="315" text-anchor="middle" font-family="Arial,'Noto Sans KR',sans-serif" font-size="21" fill="#526579">서울 서초구 양재대로12길 56</text>
+    <text x="89" y="350" text-anchor="middle" font-family="Arial,'Noto Sans KR',sans-serif" font-size="20" font-weight="800" fill="#1484d6">B동 5층</text>
+  </g>
+  <g transform="translate(350 204)">
+    <rect width="208" height="84" rx="22" fill="#fff" stroke="#bfd7ec" stroke-width="3"/>
+    <circle cx="40" cy="42" r="23" fill="#38bdf8"/>
+    <path d="M31 34h18v17H31zM35 29h10v5" fill="none" stroke="#fff" stroke-width="3"/>
+    <text x="76" y="38" font-family="Arial,'Noto Sans KR',sans-serif" font-size="18" font-weight="700" fill="#0a192f">양재대로12길</text>
+    <text x="76" y="63" font-family="Arial,'Noto Sans KR',sans-serif" font-size="16" fill="#526579">행사장 진입 방향</text>
+  </g>
+</svg>

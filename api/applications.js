@@ -1,5 +1,5 @@
 const { createClient } = require('@supabase/supabase-js');
-const APPLICATION_LIMIT = 60;
+const APPLICATION_LIMIT = 30;
 
 function json(response, status, body) {
   response.status(status).setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -18,7 +18,6 @@ function getSupabase() {
 function normalizeApplication(body = {}) {
   return {
     company_name: String(body.companyName || '').trim(),
-    business_registration_number: String(body.businessNumber || '').replace(/\D/g, ''),
     attendee1_name: String(body.attendee1Name || '').trim(),
     attendee1_role: String(body.attendee1Role || '').trim(),
     attendee1_email: String(body.attendee1Email || '').trim(),
@@ -33,9 +32,6 @@ function normalizeApplication(body = {}) {
 function validate(application) {
   if (!application.company_name || !application.attendee1_name || !application.attendee1_role || !application.attendee1_phone) {
     return '필수 입력 항목을 모두 입력해 주세요.';
-  }
-  if (!/^\d{10}$/.test(application.business_registration_number)) {
-    return '사업자등록번호는 숫자 10자리로 입력해 주세요.';
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(application.attendee1_email)) {
     return '올바른 이메일 주소를 입력해 주세요.';
@@ -66,7 +62,6 @@ module.exports = async function handler(request, response) {
       }
 
       const { error } = await supabase.from('event_applications').insert(application);
-      if (error?.code === '23505') return json(response, 409, { error: '이미 신청된 사업자등록번호입니다.' });
       if (error) throw error;
       return json(response, 201, { ok: true });
     }

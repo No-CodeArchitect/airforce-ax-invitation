@@ -47,9 +47,6 @@ function setupForm() {
   const form = document.querySelector("#applicationForm");
   if (!form) return;
   const status = document.querySelector("#formStatus");
-  form.businessNumber.addEventListener("input", () => {
-    form.businessNumber.value = onlyDigits(form.businessNumber.value);
-  });
   form.attendee1Phone.addEventListener("input", () => {
     form.attendee1Phone.value = formatPhone(form.attendee1Phone.value);
   });
@@ -57,12 +54,6 @@ function setupForm() {
     event.preventDefault();
     const submitButton = form.querySelector('button[type="submit"]');
     const selectedProjects = [...form.querySelectorAll("input[name='projects']:checked")].map((item) => item.value);
-    const businessNumber = onlyDigits(form.businessNumber.value);
-    if (!/^\d{10}$/.test(businessNumber)) {
-      status.textContent = "사업자등록번호는 숫자 10자리로 입력해 주세요.";
-      form.businessNumber.focus();
-      return;
-    }
     if (selectedProjects.length === 0) {
       status.textContent = "관심 연구과제를 1개 이상 선택해 주세요.";
       return;
@@ -70,7 +61,6 @@ function setupForm() {
 
     const application = {
       companyName: form.companyName.value.trim(),
-      businessNumber,
       attendee1Name: form.attendee1Name.value.trim(),
       attendee1Role: form.attendee1Role.value.trim(),
       attendee1Email: form.attendee1Email.value.trim(),

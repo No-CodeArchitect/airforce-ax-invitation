@@ -27,7 +27,7 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="index.html"><span class="brand-mark">AX</span><span>Admin Dashboard</span></a>
+    <a class="brand" href="index.html"><span class="brand-mark"><img src="assets/collaboration-mark.png" alt=""></span><span>서울대·공군 AX 협력센터</span></a>
     <nav class="nav"><a href="index.html">랜딩 페이지</a></nav>
   </header>
 
@@ -46,7 +46,7 @@
         <h2>참가 신청 현황</h2>
       </div>
       <div class="stats">
-        <div class="stat"><span>신청 기업</span><strong id="companyCount">0</strong><small>중복 기업 제외</small></div>
+        <div class="stat"><span>신청 기업</span><strong id="companyCount">0</strong><small>접수 건수</small></div>
         <div class="stat"><span>총 참석 인원</span><strong id="attendeeCount">0</strong><small>동반자 포함</small></div>
         <div class="stat"><span>밋업 희망</span><strong id="meetupCount">0</strong><small>기업</small></div>
       </div>
@@ -68,7 +68,7 @@
         </div>
         <table>
           <thead>
-            <tr><th><input type="checkbox" id="selectAll" aria-label="전체 선택"></th><th>기업명</th><th>사업자번호</th><th>참석자</th><th>연락처</th><th>관심 과제</th><th>밋업</th><th>신청일</th></tr>
+            <tr><th><input type="checkbox" id="selectAll" aria-label="전체 선택"></th><th>기업명</th><th>참석자</th><th>연락처</th><th>관심 과제</th><th>밋업</th><th>신청일</th></tr>
           </thead>
           <tbody id="applicationRows"></tbody>
         </table>
@@ -120,7 +120,7 @@
 
     function render() {
       const all = applications;
-      const companyCount = new Set(all.map((item) => item.business_registration_number)).size;
+      const companyCount = all.length;
       document.querySelector("#companyCount").textContent = companyCount;
       document.querySelector("#attendeeCount").textContent = all.reduce((sum, item) => sum + 1 + (item.attendee2_name ? 1 : 0), 0);
       document.querySelector("#meetupCount").textContent = all.filter((item) => item.meetup_status === "Y").length;
@@ -128,14 +128,13 @@
         <tr>
           <td><input type="checkbox" value="${item.id}"></td>
           <td>${escapeHtml(item.company_name)}</td>
-          <td>${item.business_registration_number}</td>
           <td>${escapeHtml(item.attendee1_name)} ${escapeHtml(item.attendee1_role)}${item.attendee2_name ? `<br>${escapeHtml(item.attendee2_name)} ${escapeHtml(item.attendee2_role)}` : ""}</td>
           <td>${escapeHtml(item.attendee1_email)}<br>${escapeHtml(item.attendee1_phone)}</td>
           <td>${item.selected_projects.map(escapeHtml).join("<br>")}</td>
           <td>${item.meetup_status}</td>
           <td>${new Date(item.created_at).toLocaleString("ko-KR")}</td>
         </tr>
-      `).join("") || `<tr><td colspan="8">신청 데이터가 없습니다.</td></tr>`;
+      `).join("") || `<tr><td colspan="7">신청 데이터가 없습니다.</td></tr>`;
     }
 
     function escapeHtml(value = "") {
@@ -165,8 +164,8 @@
       render();
     });
     document.querySelector("#downloadCsv").addEventListener("click", () => {
-      const header = ["기업명","사업자등록번호","신청자","직책","이메일","휴대전화","동반자","동반자직책","관심과제","밋업","신청일"];
-      const lines = filtered().map((item) => [item.company_name,item.business_registration_number,item.attendee1_name,item.attendee1_role,item.attendee1_email,item.attendee1_phone,item.attendee2_name,item.attendee2_role,item.selected_projects.join(" / "),item.meetup_status,item.created_at].map((cell) => `"${String(cell || "").replaceAll('"','""')}"`).join(","));
+      const header = ["기업명","신청자","직책","이메일","휴대전화","동반자","동반자직책","관심과제","밋업","신청일"];
+      const lines = filtered().map((item) => [item.company_name,item.attendee1_name,item.attendee1_role,item.attendee1_email,item.attendee1_phone,item.attendee2_name,item.attendee2_role,item.selected_projects.join(" / "),item.meetup_status,item.created_at].map((cell) => `"${String(cell || "").replaceAll('"','""')}"`).join(","));
       const blob = new Blob(["\ufeff" + [header.join(","), ...lines].join("\n")], { type: "text/csv;charset=utf-8" });
       const url = URL.createObjectURL(blob);
       const link = Object.assign(document.createElement("a"), { href: url, download: "공군_AX_설명회_신청현황.csv" });
