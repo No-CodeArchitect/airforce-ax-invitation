@@ -202,6 +202,16 @@ main,
 .application-notes span { color: var(--sky); font-size: 11px; letter-spacing: .12em; }
 .form { display: grid; gap: 16px; padding: 30px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.required-note {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+}
+.required-mark {
+  color: #e11d48;
+  font-weight: 900;
+}
 label, legend { font-weight: 850; color: var(--navy); }
 input {
   width: 100%;
@@ -324,6 +334,8 @@ fieldset input, .consent input { width: auto; margin-right: 8px; }
   font-weight: 900;
 }
 .completion-card.is-closed .completion-check { background: linear-gradient(135deg, #475569, #0f172a); }
+.completion-card.is-validation .completion-check { background: linear-gradient(135deg, #b45309, #f59e0b); }
+.completion-card.is-validation .eyebrow { color: #b45309; }
 .completion-card.is-closed .eyebrow { color: #475569; }
 .completion-card .eyebrow { justify-content: center; margin-bottom: 12px; font-size: 12px; }
 .completion-card h2 { margin: 0; color: var(--navy); font-size: 30px; letter-spacing: -.04em; }
