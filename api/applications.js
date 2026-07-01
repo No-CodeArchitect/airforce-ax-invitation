@@ -1,5 +1,5 @@
 const { createClient } = require('@supabase/supabase-js');
-const APPLICATION_LIMIT = 37;
+const APPLICATION_LIMIT = 39;
 
 function json(response, status, body) {
   response.status(status).setHeader('Content-Type', 'application/json; charset=utf-8');
